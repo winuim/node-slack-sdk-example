@@ -14,4 +14,5 @@ const conversationId = process.env.CONVERSATION_ID;
 
     // `res` contains information about the posted message
     console.log('Message sent: ', res.ts);
+
 })();

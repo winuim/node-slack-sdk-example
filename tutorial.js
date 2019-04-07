@@ -2,12 +2,26 @@ const { WebClient } = require('@slack/web-api');
 
 console.log('Getting started with Node Slack SDK');
 
-const token = process.env.SLACK_TOKEN;
-const web = new WebClient(token);
+// Create a new instance of the WebClient class with the token read from your environment variable
+const web = new WebClient(process.env.SLACK_TOKEN);
+// The current date
+const currentTime = new Date().toTimeString();
 
 (async () => {
-    web.api.test().then(console.log);
-    web.users.list({
-        limit: 10,
-    }).then(console.log).catch(console.error);
+    // Use the `auth.test` method to find information about the installing user
+    const res = await web.auth.test()
+
+    // Find your user id to know where to send messages to
+    const userId = res.user_id
+
+    // Use the `chat.postMessage` method to send a message from this app
+    await web.chat.postMessage({
+        channel: userId,
+        text: `The current time is ${currentTime}`,
+    });
+
+    console.log('Message posted!');
+
+    await web.api.test().then(console.log).catch(console.error);
+
 })();
