@@ -6,7 +6,7 @@ const token = process.env.SLACK_TOKEN;
 const web = new WebClient(token);
 
 // This argument can be a channel ID, a DM ID, a MPDM ID, or a group ID
-const conversationId = '';
+const conversationId = process.env.CONVERSATION_ID;
 
 (async () => {
     // See: https://api.slack.com/methods/chat.postMessage
